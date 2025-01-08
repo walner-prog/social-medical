@@ -58,7 +58,7 @@ Route::get('/', function () {
 });
 
 
-
+Route::get('/promociones-ofertas', [HomeController::class, 'promociones'])->name('promotions.offers');
 Route::get('dashboard', [HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');

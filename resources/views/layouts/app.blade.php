@@ -9,6 +9,9 @@
         <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
       
+        <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.0/classic/styles.css">
+
+       
         <script src="https://cdn.ckeditor.com/ckeditor5/38.0.0/classic/ckeditor.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
@@ -45,6 +48,43 @@
     background-color: #f7fafc;
     color: #1a202c;
     }
+
+   /* Tema claro */
+:root {
+    --ck-color-base-background: #ffffff; /* Fondo del editor en tema claro */
+    --ck-color-base-foreground: #000000; /* Texto en tema claro */
+    --ck-color-focus-border: #2563eb;   /* Borde de enfoque en tema claro */
+}
+
+/* Tema oscuro (con el prefijo de Tailwind `dark:`) */
+.dark {
+    --ck-color-base-background: #1e293b; /* Fondo del editor en tema oscuro */
+    --ck-color-base-foreground: #f8fafc; /* Texto en tema oscuro */
+    --ck-color-focus-border: #3b82f6;   /* Borde de enfoque en tema oscuro */
+}
+
+/* Tema claro */
+:root {
+    --ck-color-button-default-background: #f3f4f6; /* Fondo del botón en tema claro */
+    --ck-color-button-default-hover-background: #e5e7eb; /* Fondo al pasar el cursor */
+    --ck-color-button-on-background: #49649f; /* Fondo cuando el botón está activo */
+    --ck-color-button-default-border: #d1d5db; /* Borde del botón */
+    --ck-color-icon: #1f2937; /* Icono en los botones */
+    --ck-color-icon-hover: #111827; /* Icono al pasar el cursor */
+}
+
+/* Tema oscuro */
+.dark {
+    --ck-color-button-default-background: #6b7e9c; /* Fondo del botón en tema oscuro */
+    --ck-color-button-default-hover-background: #164587; /* Fondo al pasar el cursor */
+    --ck-color-button-on-background: #6ba4ff; /* Fondo cuando el botón está activo */
+    --ck-color-button-default-border: #6b7280; /* Borde del botón */
+    --ck-color-icon: #f7faff; /* Icono en los botones */
+    --ck-color-icon-hover: #f3f4f6; /* Icono al pasar el cursor */
+}
+
+
+
 
     
 

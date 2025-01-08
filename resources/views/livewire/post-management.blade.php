@@ -12,9 +12,13 @@
             @error('title') <span class="text-red-500">{{ $message }}</span> @enderror
         </div>
                  
-        <div class="mb-4"wire:ignore>
-            <label for="content" class="block text-gray-600 font-bold mb-2">Contenido</label>
-            <textarea id="content" wire:model.lazy="content" class="ckeditor   border border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-"></textarea>
+        <div class="mb-4" wire:ignore>
+            <label for="content" class="block text-gray-600 dark:text-slate-50 font-bold mb-2">Contenido</label>
+            <textarea 
+                id="content" 
+                wire:model.lazy="content" 
+                class="ckeditor"
+            ></textarea>
             @error('content') <span class="text-red-500">{{ $message }}</span> @enderror
         </div>
         
@@ -54,28 +58,46 @@
         <button wire:click="deletePost({{ $postId }})" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4 focus:outline-none focus:ring-2 focus:ring-red-300 dark:focus:ring-red-500">Eliminar publicación</button>
     @endif
 
-  
-</div>
-<script>
-    let editor;
 
-    // Inicializar CKEditor y sincronizar con Livewire
-    ClassicEditor
-        .create(document.querySelector('.ckeditor'))
-        .then(function(leditor) {
-            editor = leditor;
-
-            // Sincronizar con Livewire usando wire:model.lazy
-            editor.model.document.on('change:data', () => {
-                @this.set('content', editor.getData()); // Usamos 'content' como el campo del modelo
+    <script>
+        let editor;
+    
+        // Inicializar CKEditor y sincronizar con Livewire
+        ClassicEditor
+            .create(document.querySelector('.ckeditor'), {
+                
+                language: 'es', // Cambia según el idioma que necesites
+            })
+            .then(function(leditor) {
+                editor = leditor;
+    
+                
+    
+                // Sincronizar con Livewire usando wire:model.lazy
+                editor.model.document.on('change:data', () => {
+                    @this.set('content', editor.getData()); // Sincronizar el contenido con el modelo
+                });
+            })
+            .catch(error => {
+                console.error(error);
             });
-        })
-        .catch(error => {
-            console.error(error);
-        });
-
-
-</script>
+    </script>
+    
+    <style>
+        /* Aplica las variables al contenedor editable del editor */
+        .ck-editor__editable {
+            background-color: var(--ck-color-base-background);
+            color: var(--ck-color-base-foreground);
+            border-color: var(--ck-color-focus-border);
+        }
+    
+        /* Opcional: Ajustar el color del texto del marcador de posición */
+        .ck-editor__editable::placeholder {
+            color: var(--ck-color-base-foreground);
+            opacity: 0.6;
+        }
+    </style>
+</div>
 
 
 

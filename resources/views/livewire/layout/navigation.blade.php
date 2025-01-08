@@ -18,8 +18,8 @@ new class extends Component
 
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0  dark:border-gray-600">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="{{ route('dashboard') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-3">
+        <a href="{{ route('dashboard') }}" class="flex items-center space-x-1 rtl:space-x-reverse">
             <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo">
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Social Medical</span>
         </a>
@@ -101,16 +101,16 @@ new class extends Component
                         {{ __('Quienes Somos') }}
                     </a>
 
-                    @auth
-               @if(auth()->user()->role === 'doctor')
-                  <div x-data="{ open: false }" class="relative">
-                <!-- Botón para mostrar el Dropdown -->
-                <button @click="open = !open" class="block w-full text-left text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                   @auth
+                   @if(auth()->user()->role === 'doctor')
+                    <div x-data="{ open: false }" class="relative">
+                   <!-- Botón para mostrar el Dropdown -->
+                    <button @click="open = !open" class="block w-full text-left text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
                     {{ __('Opciones para Doctores') }}
                     <svg class="w-4 h-4 inline ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
-                </button>
+                    </button>
 
                 <!-- Contenido del Dropdown -->
                 <div x-show="open" @click.away="open = false" x-cloak class="absolute left-0 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md z-50">
@@ -174,11 +174,8 @@ new class extends Component
         
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
             <div class="flex ">
-        
             
-
-            
-                <div class="hidden sm:flex space-x-8 sm:-my-px sm:ms-auto ">
+                <div class="hidden sm:flex space-x-6 sm:-my-px sm:ms-auto  ">
                     <a href="{{ route('dashboard') }}" 
                        class=" text-gray-700 dark:text-gray-300  py-2 rounded-lg relative 
                              
@@ -188,7 +185,9 @@ new class extends Component
                               {{ request()->routeIs('dashboard') ? 'after:w-full' : '' }}">
                         {{ __('Dashboard') }}
                     </a>
+                   
                 
+          
                     <a href="{{ route('doctores.index') }}" 
                        class="block text-gray-700 dark:text-gray-300  py-2 rounded-lg relative 
                               
@@ -228,12 +227,57 @@ new class extends Component
                               {{ request()->routeIs('quienes.somos') ? 'after:w-full' : '' }}">
                         {{ __('Quienes Somos') }}
                     </a>
+
+                    @auth
+                    @if(auth()->user()->role === 'doctor')
+                     <div x-data="{ open: false }" class="relative">
+                    <!-- Botón para mostrar el Dropdown -->
+                     <button @click="open = !open" class=" text-gray-700  dark:text-gray-300  rounded-lg  py-2
+                      after:content-[''] after:absolute after:bottom-0 after:left-0 
+                              after:w-0 after:h-0.5 after:bg-indigo-500 
+                              hover:after:w-full hover:after:transition-all hover:after:duration-300 ">
+                     {{ __('Opciones para Doctores') }}
+                     
+                     </button>
+ 
+                 <!-- Contenido del Dropdown -->
+                 <div x-show="open" @click.away="open = false" x-cloak class="absolute left-0 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md z-50">
+                     <a href="{{ route('doctor.detalle', auth()->user()->id) }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                         {{ __('Revisa tu perfil') }}
+                     </a>
+                     <a href="{{ route('blogs.accions') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                         {{ __('Gestiona tus publicaciones') }}
+                     </a>
+                     <a href="{{ route('appointments.index') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                         {{ __('Gestiona tus citas') }}
+                     </a>
+                 </div>
+             </div>
+                @endif
+            @endauth
+                    
+          
+
+         
+
+           
+                    
                 </div>
                 
                 
              
              
                   </div>
+
+                  <div  class=" text-gray-700 dark:text-gray-300  py-2 rounded-lg relative ml-24 "> 
+                    @livewire('post-counter')
+  
+              </div>
+  
+              <div  class="block text-gray-700 dark:text-gray-300  py-2 rounded-lg relative  ml-4"> 
+                  <livewire:info-tooltip />
+  
+             </div>
 
             
             <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 ml-36">

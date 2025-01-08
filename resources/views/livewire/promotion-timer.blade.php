@@ -29,10 +29,13 @@
 
             <!-- Botón de suscripción con animación -->
             <div class="mt-6 text-center">
-                <button class="bg-green-600 text-white py-2 px-6 rounded-full text-lg shadow-lg transform transition hover:scale-110 hover:bg-green-700 duration-300 ease-in-out">
+                <button 
+                    class="bg-green-600 text-white py-2 px-6 rounded-full text-lg shadow-lg transform transition hover:scale-110 hover:bg-green-700 duration-300 ease-in-out"
+                    onclick="window.location.href='{{ route('promotions.offers') }}'">
                     Suscríbete
                 </button>
             </div>
+            
         @else
             <div class="mt-6 text-center">
                 <p class="text-lg text-gray-400">¡No hay promociones activas en este momento!</p>

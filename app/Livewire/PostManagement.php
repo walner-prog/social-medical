@@ -70,8 +70,11 @@ class PostManagement extends Component
                 'image' => $imagePath,
                 'category_id' => $this->category_id,
             ]);
+    
+            // Emitir el evento para actualizar el contador usando el post actualizado
+            $this->dispatch('post-created', ['title' => $post->title]);
         } else {
-            Post::create([
+            $post = Post::create([
                 'user_id' => auth()->id(),
                 'title' => $this->title,
                 'slug' => Str::slug($this->title),
@@ -81,6 +84,9 @@ class PostManagement extends Component
             ]);
     
             $this->content = '';
+    
+            // Emitir el evento para actualizar el contador usando el post recién creado
+            $this->dispatch('post-created', ['title' => $post->title]);
         }
     
         session()->flash('message', $this->isEditing ? 'Post updated successfully!' : 'Post created successfully!');
@@ -88,6 +94,7 @@ class PostManagement extends Component
         // Redirigir después de guardar
         return redirect()->route('blogs.index');
     }
+    
     
     
 
