@@ -11,7 +11,7 @@ class InfoTooltip extends Component
     // Método para cargar datos dinámicos
     public function loadData()
     {
-        $this->count = rand(1, 100); // Simula un dato dinámico
+        $this->count = rand(1, 5); // Simula un dato dinámico
         $this->info = [
             'title' => 'Información Importante',
             'details' => 'Esto es un ejemplo de datos dinámicos.',

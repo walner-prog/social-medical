@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Doctor;
+use App\Models\Question;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
-
+use App\Http\Middleware\AuthenticateJWT;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\AppointmentController;
@@ -15,6 +16,10 @@ use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\DropzoneController;
+use App\Http\Controllers\CategoryController;
+
+Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('category.posts');
+
   
 Route::get('dropzone', [DropzoneController::class, 'index'])->name('dropzone');
 
@@ -54,7 +59,30 @@ Route::get('/', function () {
     $specialties = Doctor::select('specialty', DB::raw('count(*) as count'))
     ->groupBy('specialty')
     ->get();
-    return view('welcome', compact('users','specialties')); // Pasar los datos a la vista
+
+    // Obtener los datos de usuarios por mes
+    $usersTimeline = User::select(
+        DB::raw("DATE_FORMAT(created_at, '%b %d, %Y') as date"), 
+        DB::raw("COUNT(*) as total")
+    )
+    ->groupBy('date')
+    ->orderBy('created_at', 'desc')
+    ->take(6)
+    ->pluck('total', 'date');
+
+    $doctorsAvatar = Doctor::with('user')->orderBy('created_at')->skip(4)->take(3)->get();
+
+    $totalDoctors = Doctor::count();
+
+    $questions = Question::all();
+
+    return view('welcome', compact('users',
+    'specialties',
+    'usersTimeline',
+    'doctorsAvatar',
+    'totalDoctors',
+    'questions')); 
+    
 });
 
 
@@ -110,6 +138,7 @@ Route::get('quienessomos', [BlogController::class, 'QuienesSomos'])->name('quien
     Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
     Route::get('/blog/edit/{postId}', [BlogController::class, 'edit'])->name('blog.edit');
     Route::get('/posts/{post:slug}', [BlogController::class, 'show'])->name('posts.show');
+   // Route::get('/posts/{post:slug}', [BlogController::class, 'show'])->name('posts.show')->middleware(AuthenticateJWT::class);
     Route::get('/blogs/accions', [BlogController::class, 'accionPost'])->name('blogs.accions');
    // Route::post('/blog', [BlogController::class, 'store'])->name('blog.store');
     //Route::put('/blog/{postId}', [BlogController::class, 'update'])->name('blog.update');

@@ -6,6 +6,7 @@ use Livewire\Component;
  use Livewire\WithFileUploads;
  use App\Models\Post;
  use App\Models\Category;
+ use App\Models\Tag;
  use Illuminate\Support\Str;
  use HTMLPurifier;
 use HTMLPurifier_Config;
@@ -21,12 +22,15 @@ class PostManagement extends Component
     public $imagePreview;
     public $existingImage;
     public $isEditing = false;
+    public $tags = [];
 
     protected $rules = [
         'title' => 'required|string|max:255',
         'content' => 'required',
-        'image' => 'nullable|image|max:2048', // Max image size 2MB
+        'image' => 'nullable|image|max:2048',
         'category_id' => 'required|exists:categories,id',
+        'tags' => 'array', // Validar que sea un array
+        'tags.*' => 'exists:tags,id', // Validar que cada etiqueta exista en la base de datos
     ];
 
     public function mount($postId = null)
@@ -39,6 +43,7 @@ class PostManagement extends Component
             $this->content = $post->content;
             $this->category_id = $post->category_id;
             $this->existingImage = $post->image;
+            $this->tags = $post->tags()->pluck('id')->toArray();
         }
     }
 
@@ -47,53 +52,50 @@ class PostManagement extends Component
         $this->imagePreview = $this->image->temporaryUrl();
     }
     public function savePost()
-    {
-        $this->validate();
-    
-        $imagePath = $this->existingImage;
-    
-        if ($this->image) {
-            $imagePath = $this->image->store('images', 'public'); // Store image in 'public/images' directory
-        }
-    
-        // Limpiar el contenido con HTMLPurifier
-        $config = HTMLPurifier_Config::createDefault();
-        $purifier = new HTMLPurifier($config);
-        $cleanContent = $purifier->purify($this->content); // Esto elimina las etiquetas maliciosas pero conserva lo necesario
-    
-        if ($this->isEditing) {
-            $post = Post::findOrFail($this->postId);
-            $post->update([
-                'title' => $this->title,
-                'slug' => Str::slug($this->title),
-                'content' => $cleanContent, // Guardar contenido limpio
-                'image' => $imagePath,
-                'category_id' => $this->category_id,
-            ]);
-    
-            // Emitir el evento para actualizar el contador usando el post actualizado
-            $this->dispatch('post-created', ['title' => $post->title]);
-        } else {
-            $post = Post::create([
-                'user_id' => auth()->id(),
-                'title' => $this->title,
-                'slug' => Str::slug($this->title),
-                'content' => $cleanContent, // Guardar contenido limpio
-                'image' => $imagePath,
-                'category_id' => $this->category_id,
-            ]);
-    
-            $this->content = '';
-    
-            // Emitir el evento para actualizar el contador usando el post recién creado
-            $this->dispatch('post-created', ['title' => $post->title]);
-        }
-    
-        session()->flash('message', $this->isEditing ? 'Post updated successfully!' : 'Post created successfully!');
-    
-        // Redirigir después de guardar
-        return redirect()->route('blogs.index');
+{
+    $this->validate();
+
+    $imagePath = $this->existingImage;
+
+    if ($this->image) {
+        $imagePath = $this->image->store('images', 'public'); // Guardar la imagen
     }
+
+    // Limpiar el contenido
+    $config = HTMLPurifier_Config::createDefault();
+    $purifier = new HTMLPurifier($config);
+    $cleanContent = $purifier->purify($this->content);
+
+    if ($this->isEditing) {
+        $post = Post::findOrFail($this->postId);
+        $post->update([
+            'title' => $this->title,
+            'slug' => Str::slug($this->title),
+            'content' => $cleanContent,
+            'image' => $imagePath,
+            'category_id' => $this->category_id,
+        ]);
+
+        // Sincronizar etiquetas
+        $post->tags()->sync($this->tags);
+    } else {
+        $post = Post::create([
+            'user_id' => auth()->id(),
+            'title' => $this->title,
+            'slug' => Str::slug($this->title),
+            'content' => $cleanContent,
+            'image' => $imagePath,
+            'category_id' => $this->category_id,
+        ]);
+
+        // Sincronizar etiquetas
+        $post->tags()->sync($this->tags);
+    }
+
+    session()->flash('message', $this->isEditing ? 'Post actualizado con éxito!' : 'Post creado con éxito!');
+    return redirect()->route('blogs.index');
+}
+
     
     
     
@@ -107,9 +109,13 @@ class PostManagement extends Component
     }
 
     public function render()
-    {
-        return view('livewire.post-management', [
-            'categories' => Category::all(),
-        ]);
-    }
+{
+    //$tags = Tag::all();
+   // dd($tags); // Esto mostrará los tags en la vista de Livewire
+    return view('livewire.post-management', [
+        'categories' => Category::all(),
+        'tags' => Tag::all(),// Todas las etiquetas disponibles
+    ]);
+}
+
 }

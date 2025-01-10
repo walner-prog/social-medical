@@ -22,6 +22,7 @@ class PostDetail extends Component
     public $user;
     public $relatedPosts;
     public $parentId;
+  
 
     public function mount(Post $post)
     {
@@ -33,8 +34,11 @@ class PostDetail extends Component
         // Cargar posts relacionados por categoría
         $this->relatedPosts = Post::where('category_id', $this->post->category_id)
             ->where('id', '!=', $this->post->id)
-            ->take(5)
+            ->take(10)
             ->get();
+
+       
+
     }
     
 
@@ -97,9 +101,12 @@ class PostDetail extends Component
 
     public function render()
     {
+             // Obtenemos los 5 últimos posts
+        $latestPosts = Post::latest()->take(12)->get();
         return view('livewire.post-detail', [
             'post' => $this->post,
             'relatedPosts' => $this->relatedPosts,
+            'latestPosts' => $latestPosts,
         ]);
     }
 }

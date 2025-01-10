@@ -12,6 +12,7 @@
         <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
         <!-- Styles -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -213,52 +214,182 @@
 
          </div>
 
-         <div class="py-2">
-            <div class="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
-                
+         <div class="bg-gradient-to-b from-[#0F1020] to-[#1B1D35] min-h-screen flex items-center justify-center py-10 px-4">
+            <div class="max-w-5xl w-full bg-opacity-80 p-6 rounded-xl shadow-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                  <!-- Contenido Izquierdo -->
+                  <div class="space-y-6 ">
+                    <h1 class="text-white text-4xl font-bold leading-tight">Descubre y publica en el blog: Fácil y rápido</h1>
+                    <p class="text-gray-300 text-lg">Un espacio creado especialmente para que los médicos compartan conocimientos, experiencias y consejos de salud con los usuarios. Busca contenido por especialidad, ciudad o temas populares.</p>
+                    <p class="text-gray-300 text-lg">Nuestro objetivo es facilitar la gestión de publicaciones y permitir a los médicos llegar a un público más amplio mientras enriquecen la plataforma con contenido útil y educativo.</p>
+                    <a href="{{ route('blogs.index') }}" class="inline-block bg-blue-900 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">Explorar el Blog</a>
+                  </div>
               
-            
-                <!-- Card Principal de Información -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-4">
-                    <div class="p-6">
-                        <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">Resumen de Actividades</h2>
-                        <p class="text-lg mt-2 text-gray-700 dark:text-gray-300">Revisa las estadísticas y las actividades más recientes.</p>
+                  <!-- Contenido Derecho -->
+                  <div class="relative">
+                    <div class="bg-[#1D2237]  rounded-xl shadow-lg">
+                      <div class="flex justify-between mb-4 text-gray-400 p-2">
+                        <button class="px-3 py-1 mr-2 rounded bg-gray-700 text-gray-300 flex items-center gap-2">
+                          <i class="fas fa-pen"></i> Crear Post
+                        </button>
+                        <button class="px-3 py-1 mr-1 rounded bg-gray-700 text-gray-300 flex items-center gap-2">
+                          <i class="fas fa-folder-open"></i> Mis Publicaciones
+                        </button>
+                        <button class="px-3 py-1 mr-1   rounded bg-gray-700 text-gray-300 flex items-center gap-2">
+                          <i class="fas fa-search"></i> Buscar Post
+                        </button>
+                      </div>
+                  
+                      <!-- Información sobre el Blog -->
+                      <div class="bg-[#1A1D2E] p-4 rounded-lg text-white text-sm">
+                        <p>
+                          Nuestro blog te permite <span class="text-blue-700 font-semibold">crear</span> y <span class="text-blue-700 font-semibold">gestionar publicaciones</span> fácilmente. Puedes organizar tus contenidos por temas de interés y alcanzar un mayor público.
+                        </p>
+                        <p class="mt-4">
+                          Con herramientas simples e intuitivas, puedes buscar contenido o compartir artículos médicos con solo unos clics. ¡Empieza a explorar ahora!
+                        </p>
+                      </div>
                     </div>
-    
-                    <!-- Panel de Estadísticas -->
-                <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
-                    <!-- Tarjeta: Total de Doctores -->
-                    <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Total de Doctores</h3>
-                        <p class="text-3xl font-bold text-blue-500">420</p>
+                  
+                    <!-- Iconos de Font Awesome -->
+                    <div class="mt-6 grid grid-cols-3 gap-4 text-center">
+                      <div class="flex flex-col items-center animate-bounce">
+                        <i class="fas fa-pencil-alt text-blue-700 text-3xl"></i>
+                        <span class="text-gray-300 mt-2">Escribir</span>
+                      </div>
+                      <div class="flex flex-col items-center animate-spin">
+                        <i class="fas fa-search text-blue-700 text-3xl"></i>
+                        <span class="text-gray-300 mt-2">Buscar</span>
+                      </div>
+                      <div class="flex flex-col items-center animate-pulse">
+                        <i class="fas fa-share-alt text-blue-700 text-3xl"></i>
+                        <span class="text-gray-300 mt-2">Compartir</span>
+                      </div>
                     </div>
+                  </div>
+                  
+                </div>
+              
+                <!-- Sección Inferior -->
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-10 text-center">
+                  <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg inline-block">
+                      <span class="text-white text-2xl">Tipos de Búsqueda</span>
+                    </div>
+                    <p class="text-gray-300">Encuentra contenido relevante según especialidad médica, ciudad o temas de interés específicos.</p>
+                  </div>
+              
+                  <div class="space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg inline-block">
+                      <span class="text-white text-2xl">Fácil de Usar</span>
+                    </div>
+                    <p class="text-gray-300">Los médicos pueden crear, editar y gestionar publicaciones de manera intuitiva y rápida.</p>
+                  </div>
+                </div>
+              </div>
+              
+         </div>
+
         
-                    <!-- Tarjeta: Total de Pacientes -->
-                    <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Total de Pacientes</h3>
-                        <p class="text-3xl font-bold text-green-500">3,120</p>
-                    </div>
+         <livewire:doctor-showcase />  
         
-                    <!-- Tarjeta: Ventas de Productos -->
-                    <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Ventas de Productos</h3>
-                        <p class="text-3xl font-bold text-yellow-500">$15,340</p>
-                    </div>
+          
+        <div class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen py-10 text-white">
+            <div class="text-center">
+              <h1 class="text-4xl font-bold mb-4">Usuarios Registrados</h1>
+              <p class="text-gray-400">Resumen de usuarios registrados por fechas recientes.</p>
+            </div>
+          
+            <div class="relative max-w-4xl mx-auto mt-12">
+              <!-- Timeline Line -->
+              <div class="absolute top-0 left-1/2 -translate-x-1/2 h-full w-1 bg-gradient-to-b from-indigo-500 to-purple-500"></div>
+          
+              @foreach ($usersTimeline as $date => $usersCount)
+                <!-- Timeline Item -->
+                <div class="relative mb-12">
+                  <div class="flex items-center {{ $loop->index % 2 == 0 ? 'justify-start' : 'justify-end' }}">
+                    @if ($loop->index % 2 == 0)
+                      <div class="w-1/2 pr-8 text-right">
+                        <p class="text-indigo-400 text-sm">{{ $date }}</p>
+                        <h3 class="text-2xl font-semibold">Usuarios Registrados</h3>
+                        <p class="text-gray-300 mt-2">Total: {{ $usersCount }} usuarios.</p>
+                      </div>
+                      <div class="relative flex items-center justify-center w-16 h-16 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full shadow-lg">
+                        <span class="text-lg font-bold">{{ $loop->iteration }}</span>
+                      </div>
+                    @else
+                      <div class="relative flex items-center justify-center w-16 h-16 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full shadow-lg">
+                        <span class="text-lg font-bold">{{ $loop->iteration }}</span>
+                      </div>
+                      <div class="w-1/2 pl-8 text-left">
+                        <p class="text-indigo-400 text-sm">{{ $date }}</p>
+                        <h3 class="text-2xl font-semibold">Usuarios Registrados</h3>
+                        <p class="text-gray-300 mt-2">Total: {{ $usersCount }} usuarios.</p>
+                      </div>
+                    @endif
+                  </div>
                 </div>
-                </div>
+              @endforeach
+            </div>
+          </div>
+          
+          
+        
+          <div class="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 flex items-center justify-center relative overflow-hidden">
+            <!-- Fondo con ondas -->
+            <div class="absolute inset-0">
+                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 bg-purple-500 opacity-20 rounded-full blur-3xl w-[500px] h-[500px] animate-pulse"></div>
+                <div class="absolute bottom-10 right-10 bg-blue-500 opacity-20 rounded-full blur-2xl w-[300px] h-[300px] animate-pulse"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-purple-900 opacity-25 [mask-image:radial-gradient(circle,white,transparent)]"></div>
+            </div>
+        
             
-                <!-- Tabla de Información Reciente -->
-                       
-                <div class="mt-12  dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Actividades Recientes</h3>
-                    <!-- Contenedor responsivo -->
-                    <div id="container" class="bg-white dark:bg-gray-800"></div>
-                    <hr>
-                    <div id="container2" class="bg-white dark:bg-gray-800"></div>
+            <div class="relative z-10 text-center max-w-2xl mx-auto p-8">
+                <!-- Suscriptores -->
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                    <div class="flex -space-x-2">
+                        @foreach ($doctorsAvatar as $doctor)
+                            @if ($doctor->user->avatar)
+                                <!-- Si hay avatar, mostrar la imagen -->
+                                <img src="{{ asset('storage/' . $doctor->user->avatar) }}" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-gray-800">
+                            @else
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 14c3.866 0 7-3.134 7-7S15.866 0 12 0 5 3.134 5 7s3.134 7 7 7zM12 0c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zM12 14c-2.21 0-4 1.79-4 4v2h8v-2c0-2.21-1.79-4-4-4z"/>
+                            </svg>
+                            @endif
+                        @endforeach
+                    </div>
+                    <span class="text-gray-400 text-sm">{{ $totalDoctors }} profesionales de la salud ya se han registrado.</span>
                 </div>
-    
-                <!-- Sección de Contacto y Soporte -->
-                <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-3">
+        
+                <!-- Título -->
+                <h1 class="text-white text-4xl font-bold mb-2">Suscríbete a nuestras novedades de salud</h1>
+                <p class="text-gray-400 text-lg mb-6">
+                    Regístrate para recibir contenido exclusivo sobre avances médicos, consejos de salud y noticias del sector. Mantente al día con las últimas tendencias en atención sanitaria.
+                </p>
+        
+                <!-- Formulario -->
+                <form class="flex items-center justify-center space-x-3">
+                    <input type="email" placeholder="Tu dirección de correo electrónico"
+                        class="px-4 py-3 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none w-full max-w-sm">
+                    <button type="submit"
+                        class="px-6 py-3 bg-purple-600 text-white rounded-lg shadow-lg hover:bg-purple-700 transform hover:scale-105 transition duration-300">
+                        Suscribirse →
+                    </button>
+                </form>
+        
+                <!-- Nota -->
+                <p class="text-gray-500 text-sm mt-4">Sin spam, solo actualizaciones relacionadas con la salud.</p>
+            </div>
+        </div>
+
+   
+      
+
+         <div class=" bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100"">
+             
+                
+             <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-3">
                     <!-- Tarjeta de Soporte -->
                     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
                         <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Soporte</h3>
@@ -281,10 +412,10 @@
                         <p class="text-lg text-gray-700 dark:text-gray-300">Visualiza el comportamiento de usuarios registrados y activos.</p>
                         <a href="#" class="mt-4 inline-block text-blue-500 hover:text-blue-400">Ver estadísticas</a>
                     </div>
-                </div>
+                 </div>
         
-            </div>
-        </div>
+      
+         </div>
             
         <footer class="">
             <livewire:layout.footer />

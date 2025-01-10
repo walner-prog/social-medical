@@ -9,9 +9,7 @@
     
 </style>
 <div class="mt-12">
-    
-     
-       
+
      <div  class="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 text-white flex flex-col max-w-12xl mx-auto sm:px-6 lg:px-8  dark:bg-gray-900 text-gray-800 dark:text-gray-100">
                  
         @if(session('success'))
@@ -573,6 +571,49 @@
             <div class="bg-gradient-to-b from-indigo-700 via-gray-800 to-gray-900 flex flex-col md:flex-row items-center justify-between px-4 md:px-8 py-8 md:py-16 space-y-8 md:space-y-0">
                 <livewire:fac-accordion />
             </div>
+
+
+            <div class="container mx-auto py-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Left Card -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+                        <p class="text-sm uppercase text-gray-400 mb-2">Landscape</p>
+                        <h2 class="text-2xl font-bold mb-4">Nature's Light</h2>
+                        <p class="text-gray-300 mb-6">It really matters and then like it really doesn't matter. What matters is the people who are sparked by it.</p>
+                        <button class="bg-white text-black px-4 py-2 rounded font-semibold hover:bg-gray-300">
+                            Read More
+                        </button>
+                    </div>
+                    <!-- Right Cards -->
+                    <div class="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="relative bg-cover bg-center h-40 rounded-lg shadow-md" style="background-image: url('https://via.placeholder.com/500');">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex flex-col justify-end p-4">
+                                <p class="text-lg font-semibold">Cultural</p>
+                                <p class="text-sm text-gray-300">257 SPOTS</p>
+                            </div>
+                        </div>
+                        <div class="relative bg-cover bg-center h-40 rounded-lg shadow-md" style="background-image: url('https://via.placeholder.com/500');">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex flex-col justify-end p-4">
+                                <p class="text-lg font-semibold">Popularity</p>
+                                <p class="text-sm text-gray-300">363 SPOTS</p>
+                            </div>
+                        </div>
+                        <div class="relative bg-cover bg-center h-40 rounded-lg shadow-md" style="background-image: url('https://via.placeholder.com/500');">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex flex-col justify-end p-4">
+                                <p class="text-lg font-semibold">Modern Life</p>
+                                <p class="text-sm text-gray-300">117 SPOTS</p>
+                            </div>
+                        </div>
+                        <div class="relative bg-cover bg-center h-40 rounded-lg shadow-md" style="background-image: url('https://via.placeholder.com/500');">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex flex-col justify-end p-4">
+                                <p class="text-lg font-semibold">Good Vibes</p>
+                                <p class="text-sm text-gray-300">215 SPOTS</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
            
       
         </div>

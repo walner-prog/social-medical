@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@fullcalendar/core": "^6.1.15",
-        "@fullcalendar/timegrid": "^6.1.15"
+        "@fullcalendar/timegrid": "^6.1.15",
+        "ckeditor5": "^44.1.0"
     }
 }

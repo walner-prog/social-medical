@@ -109,7 +109,7 @@
                                 <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover rounded-lg mb-6">
                             @endif
                             <h4 class="text-xl font-semibold text-yellow-400">{{ $post->title }}</h4>
-                            <p class="text-sm text-gray-400 mt-2">{{ Str::limit($post->content, 50) }}</p>
+                          
                             <div class="mt-4">
                                 <a href="{{ route('posts.show', $post->slug) }}" class="text-blue-300 text-sm font-bold hover:underline">
                                     Leer más

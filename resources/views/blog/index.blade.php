@@ -6,6 +6,8 @@
          
                
                     @livewire('post-index')
+                      
+                  
                  
                       
         </div>

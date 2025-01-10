@@ -114,9 +114,11 @@
             </p>
         @endforelse
          <!-- Paginación -->
-     <div class="mt-6">
+     <div class="mt-6 mb-4">
         {{ $posts->links() }}
     </div>
+
+    <livewire:category-card />
 
     </div>
     
@@ -243,6 +245,7 @@
             </div>
            <br>
           
+           <livewire:category-carousel />
         
             
             

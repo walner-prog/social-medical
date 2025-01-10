@@ -1,4 +1,4 @@
-<div class="container mx-auto p-6 grid grid-cols-1 lg:grid-cols-8 gap-6">
+<div class=" mx-auto p-6 grid grid-cols-1 lg:grid-cols-8 gap-6">
     <!-- Detalle del post -->
     <div class="col-span-1 lg:col-span-6 bg-white dark:bg-gray-900 dark:text-slate-300 p-6 rounded-lg shadow-lg">
         <h1 class="font-bold text-2xl text-gray-800 mb-4 mx-auto  dark:text-slate-300">{{ $post->title }}</h1>
@@ -138,10 +138,15 @@
         </div>
 
 
-        <div class="mt-4 text-center">
+        <div class="mt-4 text-center mb-4">
             <a href="{{ route('blogs.index') }}" class="text-blue-600 hover:underline transition duration-300 ease-in-out">Volver al Blog</a>
         </div>
-    </div>
+        <livewire:category-card />
+       
+        <br>
+        @livewire('libros')
+
+        </div>
 
     <!-- Posts relacionados -->
     <div class="col-span-1 lg:col-span-2 bg-gray-50 p-6 dark:bg-gray-900 dark:text-slate-300 rounded-lg shadow-lg">
@@ -159,9 +164,46 @@
         @empty
             <p class="text-gray-500 dark:text-slate-400">No hay posts relacionados.</p>
         @endforelse
-    </div>
+        <br>
+
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6 dark:text-slate-300">Últimas Publicaciones</h2>
+        <div class="container mx-auto p-6">
+
+            @foreach($latestPosts as $post)
+              <div class=" rounded-lg bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 transition duration-300 mb-4">
+                @if ($post->image)
+                  <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="rounded-t-lg object-cover h-48 ">
+                @else
+                  <div class=" h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center rounded-md shadow">
+                    <i class="fas fa-image text-gray-500 text-xl "></i>
+                  </div>
+                @endif
+                <div class="p-6">
+                  <a href="{{ route('posts.show', $post->slug) }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-400 hover:underline">
+                    <p class="text-xl font-bold mb-2">{{ $post->title }}</p>
+                  </a>
+                  <p class="text-gray-700 text-base mb-4">
+                    {{ Str::limit($post->excerpt, 100) }}
+                  </p>
+                  <div class="flex items-center justify-between">
+                    <div class="text-sm text-gray-500">
+                      <span class="font-bold dark:text-cyan-800">Categoría:</span> {{ $post->category->name }}
+                      <span class="font-bold dark:text-cyan-800">Fecha:</span> {{ $post->created_at->format('d M Y') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div>
+     
+       
+        </div>
+
+   
+           
+      
+ 
 
   
-
    
 </div>

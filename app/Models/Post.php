@@ -54,7 +54,11 @@ class Post extends Model
         return $this->messages()->avg('rating') ?? 0; // Devuelve 0 si no hay calificaciones
     }
 
- 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+    
 
 
 }
