@@ -47,5 +47,66 @@ class Doctor extends Model
 }
 
 
+public function posts()
+{
+    return $this->hasManyThrough(Post::class, User::class, 'id', 'user_id', 'user_id', 'id');
+}
+
+
+
+
+// Total de publicaciones
+public function getTotalPostsAttribute()
+{
+    return $this->posts()->count();
+}
+
+// Promedio de rating de los posts
+public function getAveragePostRatingAttribute()
+{
+    return $this->posts()->avg('rating') ?? 0; // Devuelve 0 si no hay calificaciones
+}
+
+
+// categorías en las que el doctor publica más contenido.
+public function getMostFrequentCategoryAttribute()
+{
+    return $this->user->posts()
+        ->with('category')
+        ->get()
+        ->groupBy('category.name')
+        ->sortByDesc(fn($posts) => $posts->count())
+        ->keys()
+        ->first();
+}
+
+//Publicación más reciente del doctor 
+public function getLatestPostAttribute()
+{
+    return $this->user->posts()->latest()->first();
+}
+
+//cantidad de comentarios acumulados en todos los posts. del doctor
+public function getTotalCommentsAttribute()
+{
+    return $this->user->posts()->withCount('messages')->get()->sum('messages_count');
+}
+
+//Porcentaje de publicaciones con alta calificación (e.g., >4 estrellas) 
+public function getHighRatingPostsPercentageAttribute()
+{
+    $totalPosts = $this->user->posts()->count();
+    $highRatedPosts = $this->user->posts()->where('rating', '>', 4)->count();
+
+    return $totalPosts > 0 ? round(($highRatedPosts / $totalPosts) * 100, 2) : 0;
+}
+
+
+
+
+
+
+
+
 
 }

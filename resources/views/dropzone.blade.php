@@ -42,10 +42,7 @@
                         <a href="{{ route('galery') }}" class="text-gray-600 dark:text-gray-100 block px-4 py-2 text-md-end hover:text-gray-900 dark:hover:text-gray-300 transition duration-300 dark:bg-sky-900 bg-blue-200">
                             Ver Galería de Imágenes
                         </a>
-                        <hr>
-                        <a href="{{ route('galery') }}" class="text-gray-600 dark:text-gray-100 block px-4 py-2 text-md-end hover:text-gray-900 dark:hover:text-gray-300 transition duration-300 dark:bg-sky-900 bg-blue-200">
-                            Ver Galería de Imágenes
-                        </a>
+                        
                     </div>
                 </div>
             </div>

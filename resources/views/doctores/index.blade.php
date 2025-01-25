@@ -16,7 +16,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
             <div class="flex flex-wrap -mx-3 mb-5">
                
-                    <div class="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5 max-w-7xl mx-auto sm:px-6 lg:px-8  dark:bg-gray-800 text-gray-800 dark:text-gray-100">
+                    <div class="relative flex-[1_auto] flex flex-col break-words min-w-0   m-5 max-w-7xl mx-auto sm:px-6 lg:px-8  ">
                         <div class="relative flex flex-col min-w-0 break-words border-stone-200 bg-light/30 ">
                             <div class="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
                                 <h3 class="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
@@ -49,64 +49,7 @@
         </div>
 
 
-        <div class="container mx-auto p-6">
-            <!-- Título y datos del doctor -->
-            @if ($doctor && $doctor->user)
-            <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
-                <h1 class="text-3xl font-bold text-gray-800">Bienvenido, Dr. {{ $doctor->user->name }}</h1>
-                <p class="text-gray-600 mt-2"><strong>Especialidad:</strong> {{ $doctor->specialty }}</p>
-                <p class="text-gray-600 mt-1"><strong>Años de experiencia:</strong> {{ $doctor->experience_years }}</p>
-                <p class="text-gray-600 mt-1"><strong>Ciudad:</strong> {{ $doctor->city }}</p>
-            </div>
-        @else
-            <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
-                <h1 class="text-3xl font-bold text-gray-800">Información del doctor no disponible.</h1>
-            </div>
-        @endif
-    
-            <!-- Título de Citas Programadas -->
-            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Citas Programadas</h2>
-    
-            <!-- Si no hay citas programadas -->
-            @if ($appointments->isEmpty())
-            <p class="text-gray-600">No tienes citas programadas.</p>
-            @else
-            <!-- Tabla de citas -->
-            <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
-                <table class="min-w-full table-auto">
-                    <thead>
-                        <tr class="bg-gray-100 text-gray-600">
-                            @if(auth()->user()->hasRole('doctor'))
-                                <th class="px-4 py-2 text-left">Paciente</th>
-                            @else
-                                <th class="px-4 py-2 text-left">Doctor</th>
-                            @endif
-                            <th class="px-4 py-2 text-left">Fecha de la Cita</th>
-                            <th class="px-4 py-2 text-left">Detalles</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($appointments as $appointment)
-                            <tr class="border-b">
-                                @if(auth()->user()->hasRole('doctor'))
-                                    <td class="px-4 py-2">{{ $appointment->patient_name }}</td>
-                                @else
-                                    <td class="px-4 py-2">{{ $appointment->doctor->user->name ?? 'N/A' }}</td>
-                                @endif
-                                <td class="px-4 py-2">{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d/m/Y H:i') }}</td>
-                                <td class="px-4 py-2">
-                                    <a href="{{ route('appointments.show', $appointment->id) }}" class="text-blue-500 hover:text-blue-700 font-semibold">
-                                        Ver detalles
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        @endif
-        
-        </div>
+       
 
       
        

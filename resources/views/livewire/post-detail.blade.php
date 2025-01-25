@@ -144,7 +144,7 @@
         <livewire:category-card />
        
         <br>
-        @livewire('libros')
+      {{--   @livewire('libros') --}}
 
         </div>
 

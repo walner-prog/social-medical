@@ -28,7 +28,7 @@ new class extends Component
 }; ?>
 
 
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0  dark:border-gray-600">
+<nav x-data="{ open: false }" class="bg-white w-24 dark:bg-gray-900 fixed w-full z-20 top-0 start-0  dark:border-gray-600">
     <!-- Primary Navigation Menu -->
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto ">
         <a href="{{ route('dashboard') }}" class="flex items-start space-x-3 rtl:space-x-reverse">
@@ -43,12 +43,12 @@ new class extends Component
                 <!-- Menu Toggle Button -->
             
                 <button @click="open = !open" 
-                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 ">
                 <span class="sr-only">Open main menu</span>
-                <svg x-show="!open" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14" stroke="currentColor">
+                <svg x-show="!open" class="w-5 h-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
                 </svg>
-                <svg x-show="open" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg x-show="open" class="w-5 h-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
                  </button>
@@ -71,30 +71,30 @@ new class extends Component
             
                 <!-- Responsive Menu -->
                 <div x-show="open" class="mt-2 space-y-1 bg-white    dark:bg-gray-800 dark:border-gray-700" x-cloak>
-                    <a href="{{ route('dashboard') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                    <a href="{{ route('dashboard') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2 mb-4">
                         {{ __('Dashboard') }}
                        </a>
-                       <a href="{{ route('doctores.index') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                       <a href="{{ route('doctores.index') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2 mb-4">
                         {{ __('Doctores') }}
                        </a>
     
-                        <a href="{{ route('blogs.index') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                        <a href="{{ route('blogs.index') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2 mb-4">
                             {{ __('Blog') }}
                         </a>
-                        <a href="{{ route('contacto') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                        <a href="{{ route('contacto') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2 mb-4">
                             {{ __('Contacto') }}
                         </a>
-                        <a href="{{ route('quienes.somos') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                        <a href="{{ route('quienes.somos') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2 mb-4">
                             {{ __('Quienes Somos') }}
                         </a>
-                    @auth
+                       @auth
                     <!-- Opciones para usuarios autenticados -->
-                    <a href="{{ route('profile') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                    <a href="{{ route('profile') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2 mb-4">
                         {{ __('Perfil') }}
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                        <button type="submit" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2 mb-4">
                             {{ __('Cerrar') }}
                         </button>
                     </form>
@@ -102,16 +102,16 @@ new class extends Component
                     
                 @else
                     <!-- Opciones para usuarios no autenticados -->
-                    <a href="{{ route('login') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                    <a href="{{ route('login') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2 mb-4">
                         {{ __('Iniciar') }}
                     </a>
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                        <a href="{{ route('register') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2 mb-4">
                             {{ __('Registrarse') }}
                         </a>
                     @endif
                 @endauth
-                <button id="theme-toggle-btn" type="button" class="block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 ">
+                <button id="theme-toggle-btn" type="button" class="block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-8  mb-4">
                     <svg id="theme-toggle-dark-icon-btn" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                     </svg>

@@ -85,20 +85,20 @@ new class extends Component
                      </div>
                     @endauth
     
-                   <a href="{{ route('dashboard') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                   <a href="{{ route('dashboard') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2 mb-4">
                     {{ __('Dashboard') }}
                    </a>
-                   <a href="{{ route('doctores.index') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                   <a href="{{ route('doctores.index') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2  mb-4">
                     {{ __('Doctores') }}
                    </a>
 
-                    <a href="{{ route('blogs.index') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                    <a href="{{ route('blogs.index') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2  mb-4">
                         {{ __('Blog') }}
                     </a>
-                    <a href="{{ route('contacto') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                    <a href="{{ route('contacto') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2  mb-4">
                         {{ __('Contacto') }}
                     </a>
-                    <a href="{{ route('quienes.somos') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                    <a href="{{ route('quienes.somos') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2  mb-4">
                         {{ __('Quienes Somos') }}
                     </a>
 
@@ -106,7 +106,7 @@ new class extends Component
                    @if(auth()->user()->role === 'doctor')
                     <div x-data="{ open: false }" class="relative">
                    <!-- Botón para mostrar el Dropdown -->
-                    <button @click="open = !open" class="block w-full text-left text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                    <button @click="open = !open" class="block w-full text-left text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2  mb-4">
                     {{ __('Opciones para Doctores') }}
                     <svg class="w-4 h-4 inline ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -114,14 +114,14 @@ new class extends Component
                     </button>
 
                 <!-- Contenido del Dropdown -->
-                <div x-show="open" @click.away="open = false" x-cloak class="absolute left-0 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md z-50">
-                    <a href="{{ route('doctor.detalle', auth()->user()->id) }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                <div x-show="open" @click.away="open = false" x-cloak class="absolute left-0 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md z-50 p-6">
+                    <a href="{{ route('doctor.detalle', auth()->user()->id) }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2  mb-4">
                         {{ __('Revisa tu perfil') }}
                     </a>
-                    <a href="{{ route('blogs.accions') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                    <a href="{{ route('blogs.accions') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2  mb-4">
                         {{ __('Gestiona tus publicaciones') }}
                     </a>
-                    <a href="{{ route('appointments.index') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                    <a href="{{ route('appointments.index') }}" class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2  mb-4">
                         {{ __('Gestiona tus citas') }}
                     </a>
                 </div>
@@ -137,12 +137,12 @@ new class extends Component
 
                     
                     <!-- Opciones para usuarios autenticados -->
-                    <a href="{{ route('profile') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                    <a href="{{ route('profile') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2  mb-4">
                         {{ __('Perfil') }}
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                        <button type="submit"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2  mb-4">
                             {{ __('Cerrar') }}
                         </button>
                     </form>
@@ -150,17 +150,17 @@ new class extends Component
                     
                 @else
                     <!-- Opciones para usuarios no autenticados -->
-                    <a href="{{ route('login') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                    <a href="{{ route('login') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2  mb-4" >
                         {{ __('Iniciar') }}
                     </a>
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2">
+                        <a href="{{ route('register') }}"  class="block text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg px-3 py-2  mb-4">
                             {{ __('Registrarse') }}
                         </a>
                     @endif
                 @endauth
 
-                <button id="theme-toggle-btn" type="button" class="block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 ">
+                <button id="theme-toggle-btn" type="button" class="block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5  mb-4">
                     <svg id="theme-toggle-dark-icon-btn" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                     </svg>
@@ -271,12 +271,12 @@ new class extends Component
                   </div>
 
                   <div  class=" text-gray-700 dark:text-gray-300  py-2 rounded-lg relative ml-24 "> 
-                    @livewire('post-counter')
+                   {{--  @livewire('post-counter') --}}
   
               </div>
   
               <div  class="block text-gray-700 dark:text-gray-300  py-2 rounded-lg relative  ml-4"> 
-                  <livewire:info-tooltip />
+                {{--   <livewire:info-tooltip /> --}}
   
              </div>
 

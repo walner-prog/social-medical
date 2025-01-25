@@ -12,33 +12,26 @@
     </head>
     <body>
         
-    <div class=" py-24">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
-            <div class="flex flex-wrap -mx-3 mb-5">
-               
-                    <div class="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5 max-w-7xl mx-auto sm:px-6 lg:px-8  dark:bg-gray-800 text-gray-800 dark:text-gray-100">
-                        <div class="relative flex flex-col min-w-0 break-words border-stone-200 bg-light/30 ">
-                            <div class="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
-                                <h3 class="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
-                                    <span class="mr-3 font-semibold text-dark mb-3">Informacion del  Doctor: <strong class=" text-cyan-700  dark:text-green-500">{{ $doctor->user->name }}</strong></span>
-                                </h3>
-                            </div>
-        
-                            <div class="flex-auto block py-8 pt-6 px-9 ">
-                                <livewire:doctor-detail :doctorId="$doctor->id" />
-                            </div>
+        <div class="py-24  bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
+            
+            <div class="w-full mx-auto sm:px-6 lg:px-8 ">
+                <div class="flex justify-center">
+                    <div class="relative flex flex-col min-w-0 break-words border-stone-200 bg-light/30 max-w-4xl w-full">
+                        <div class="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
+                            <h3 class="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
+                                <span class="mr-3 font-semibold text-dark mb-3">Información del Doctor: <strong class="text-cyan-700 dark:text-green-500">{{ $doctor->user->name }}</strong></span>
+                                
+                            </h3>
                         </div>
-
-                        
+        
+                        <div class="flex-auto block py-8 pt-6 px-9">
+                            <livewire:doctor-detail :doctorId="$doctor->id" />
+                        </div>
                     </div>
-
-                   
-                  
-               
+                </div>
             </div>
         </div>
-  
-    </div>
+        
 
 
   

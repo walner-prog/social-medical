@@ -17,10 +17,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
             <div class="flex flex-wrap -mx-3 mb-5">
                
-                    <div class="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5 max-w-7xl mx-auto sm:px-6 lg:px-8  dark:bg-gray-800 text-gray-800 dark:text-gray-100">
+                    <div class="relative flex-[1_auto] flex flex-col break-words min-w-0  bg-white m-5 max-w-7xl mx-auto sm:px-6 lg:px-8  dark:bg-gray-800 text-gray-800 dark:text-gray-100">
                         <div class="relative flex flex-col min-w-0 break-words border-stone-200 bg-light/30 ">
                             <div class="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
-                                <h3 class="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
+                                <a href="{{ route('citas.program') }}" class=" mb-4 inline-block px-6 py-2 text-white bg-blue-800 hover:bg-blue-950 rounded-lg shadow-lg">
+                                    regresar Citas Programadas
+                                </a>
                                     <select id="doctorSelect" name="doctor_id" class="dark:bg-gray-900 text-gray-800 dark:text-gray-100">
                                         <option class="dark:text-gray-800 dark:bg-gray-900" value="">Seleccione un doctor</option>
                                         <!-- Aquí puedes cargar dinámicamente los doctores -->
@@ -31,7 +33,7 @@
                                     
                             </div>
 
-                            <div id="calendar"></div>
+                            <div id="calendar" class=" p-4"></div>
         
                             <div class="flex-auto block py-8 pt-6 px-9 ">
                                  

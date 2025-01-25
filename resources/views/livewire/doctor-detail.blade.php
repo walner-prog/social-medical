@@ -1,4 +1,4 @@
-<div class="space-y-6 bg-white dark:bg-gray-900 p-5 rounded-lg shadow-lg transition-transform transform hover:scale-102 hover:shadow-lg duration-300">
+<div class="space-y-6 bg-white dark:bg-gray-800 p-5 rounded-lg shadow-lg transition-transform transform hover:scale-102 hover:shadow-lg duration-300">
 
     <!-- Información del Doctor -->
     <section class="flex flex-col md:flex-row items-center md:items-start space-x-6">
@@ -44,26 +44,84 @@
             <li><i class="fas fa-graduation-cap text-indigo-500 mr-2"></i><strong>Educación:</strong> {{ $doctor->education }}</li>
             <li><i class="fas fa-language text-indigo-500 mr-2"></i><strong>Idiomas:</strong> {{ $doctor->languages }}</li>
             
-            <li><strong>Horario de consulta:</strong> {{ $doctor->consultation_hours }}</li>
+            <li>
+           <i class="fas fa-clock text-indigo-500 mr-2"></i>
+            <strong>Horario de consulta:</strong> {{ $doctor->consultation_hours }}
+</li>
         </ul>
     </section>
 
     <!-- Disponibilidad -->
-    <section>
+    <section class="overflow-hidden">
         <h2 class="text-2xl font-semibold dark:text-white mb-2">Disponibilidad</h2>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             @forelse (json_decode($doctor->availability, true) ?? [] as $day => $time)
-            <div class="flex items-center">
-                <i class="fas fa-calendar-day text-indigo-500 mr-2"></i>
+            <div class="flex items-center space-x-2 overflow-hidden">
+                <i class="fas fa-calendar-day text-indigo-500"></i>
                 <strong class="mr-2">{{ ucfirst($day) }}:</strong>
-                <span>{{ $time['start'] ?? 'N/A' }} - {{ $time['end'] ?? 'N/A' }}</span>
+                <span class="truncate">{{ $time['start'] ?? 'N/A' }} - {{ $time['end'] ?? 'N/A' }}</span>
             </div>
-            
             @empty
-                <p>No hay disponibilidad especificada.</p>
+            <p>No hay disponibilidad especificada.</p>
             @endforelse
         </div>
     </section>
+    <hr>
+ 
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 dark:text-white">Estadísticas de Publicaciones</h2>
+        
+        @if ($doctor->total_posts === 0)
+            <p class="text-center text-lg text-gray-600 dark:text-gray-300">
+                Este doctor no tiene publicaciones aún.
+            </p>
+        @else
+            <div class="mb-4 flex items-center">
+                <i class="fas fa-newspaper text-indigo-500 mr-2"></i>
+                <strong class="text-lg font-medium text-gray-900 dark:text-gray-300">Cantidad de publicaciones:</strong>
+                <p class="text-lg text-gray-600 ml-2 dark:text-gray-400">{{ $doctor->total_posts }}</p>
+            </div>
+            
+            <div class="mb-4 flex items-center">
+                <i class="fas fa-star text-yellow-400 mr-2"></i>
+                <strong class="text-lg font-medium text-gray-900 dark:text-gray-300">Promedio de rating de publicaciones:</strong>
+                <p class="text-lg text-gray-600 ml-2 dark:text-gray-400">{{ number_format($doctor->average_post_rating, 1) }}</p>
+            </div>
+    
+            <div class="mb-4 flex items-center">
+                <i class="fas fa-folder-open text-green-500 mr-2"></i>
+                <strong class="text-lg font-medium text-gray-900 dark:text-gray-300">Categoría más frecuente:</strong>
+                <p class="text-lg text-gray-600 ml-2 dark:text-gray-400">{{ $doctor->most_frequent_category ?? 'Sin publicaciones' }}</p>
+            </div>
+    
+            <div class="mb-4 flex items-center">
+                <i class="fas fa-clock text-blue-500 mr-2"></i>
+                <strong class="text-lg font-medium text-gray-900 dark:text-gray-300">Última publicación:</strong>
+                @if ($doctor->latest_post)
+                    <a href="{{ route('posts.show', $doctor->latest_post->slug) }}" class="text-lg text-blue-600 ml-2 dark:text-blue-400 hover:underline">
+                        {{ $doctor->latest_post->title }}
+                    </a>
+                @else
+                    <p class="text-lg text-gray-600 ml-2 dark:text-gray-400">Sin publicaciones</p>
+                @endif
+            </div>
+            
+            
+    
+            <div class="mb-4 flex items-center">
+                <i class="fas fa-comments text-purple-500 mr-2"></i>
+                <strong class="text-lg font-medium text-gray-900 dark:text-gray-300">Comentarios totales en sus publicaciones:</strong>
+                <p class="text-lg text-gray-600 ml-2 dark:text-gray-400">{{ $doctor->total_comments }}</p>
+            </div>
+    
+            <div class="mb-4 flex items-center">
+                <i class="fas fa-thumbs-up text-teal-500 mr-2"></i>
+                <strong class="text-lg font-medium text-gray-900 dark:text-gray-300">Publicaciones con alta calificación:</strong>
+                <p class="text-lg text-gray-600 ml-2 dark:text-gray-400">{{ $doctor->high_rating_posts_percentage }}%</p>
+            </div>
+        @endif
+ 
+    
+    
     
 
     <!-- Calificación y Reseñas -->
@@ -101,14 +159,28 @@
             </button>
             <span class="text-sm font-medium text-gray-700">{{ $likesCount }} Me gusta</span>
         </div>
+        <hr>
+        @if (session()->has('message'))
+        <div class="text-green-500 mt-4">
+         {{ session('message') }}
+        </div>
 
-        <div class="space-y-6 bg-white dark:bg-gray-900 p-5 rounded-lg shadow-lg transition-transform transform hover:scale-102 hover:shadow-lg duration-300">
+        @endif
+    
+        @if (session()->has('error'))
+        <div class="bg-red-500 text-white p-4 rounded-lg mb-4">
+          {{ session('error') }}
+        </div>
+        @endif
+
+        <div class="space-y-6 p-5  transition-transform transform hover:scale-102 hover:shadow-lg duration-300">
            
             @if (Auth::check() && Auth::user()->hasRole('patient'))
             <div class="mt-4">
-                <button wire:click="toggleModal" class="bg-green-500 text-white py-2 px-4 rounded">
-                    Agendar cita
-                </button>
+                <a href="{{ route('appointmentCalendar') }}" 
+                class="bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300 w-full sm:w-auto max-lg:mx-3">
+                 Agendar Cita
+             </a>
             </div>
             @endif
         
@@ -175,20 +247,12 @@
                 
             </form>
             <br>
-            @if (session()->has('message'))
-            <div class="text-green-500 mt-4">
-             {{ session('message') }}
-            </div>
-
-            @endif
-        
-            @if (session()->has('error'))
-            <div class="bg-red-500 text-white p-4 rounded-lg mb-4">
-              {{ session('error') }}
-            </div>
-            @endif
+           
             </div>
     </section>
+    
+    
+
     
     
     <section class="space-y-4">
@@ -235,6 +299,34 @@
         </a>
         
     </div>
+
+    <div>
+        <h2 class="text-2xl font-medium font-semibold mb-1">Publicaciones del doctor</h2>
+        <ul>
+            @forelse ($posts as $post)
+                <li class="mb-2">
+                    <a href="{{ route('posts.show', $post->slug) }}" class="text-blue-500 hover:underline">
+                        <i class="fas fa-newspaper mr-2"></i> {{ $post->title }}
+                    </a>
+                </li>
+            @empty
+                <p>Este doctor aún no tiene publicaciones.</p>
+            @endforelse
+        </ul>
+    
+        @if ($posts->count() >= $this->perPage)
+            <button wire:click="loadMore" class="mt-4 bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-900">
+                Cargar más
+            </button>
+        @endif
+    </div>
+
+    <div>
+        <h2 class="text-2xl font-medium font-semibold">Doctores relacionados</h2>
+        <livewire:related-doctors :doctorId="$doctor->id" />
+    </div>
+    
+
 
     <div>
        

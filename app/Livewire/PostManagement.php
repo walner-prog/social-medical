@@ -55,11 +55,13 @@ class PostManagement extends Component
 {
     $this->validate();
 
-    $imagePath = $this->existingImage;
+    
 
-    if ($this->image) {
-        $imagePath = $this->image->store('images', 'public'); // Guardar la imagen
-    }
+    $imagePath = $this->existingImage;
+        if ($this->image) {
+            $imagePath = $this->image->store('images', 'public');
+        }
+
 
     // Limpiar el contenido
     $config = HTMLPurifier_Config::createDefault();

@@ -13,7 +13,7 @@ class DoctorProfile extends Component
     public $specialty = '';
     public $city = '';
     public $search = '';
-    public $perPage = 9;
+    public $perPage = 20;
     public $experienceYears = '';
 
     // Variables temporales para los filtros

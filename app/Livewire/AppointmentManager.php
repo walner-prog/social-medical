@@ -17,10 +17,19 @@ class AppointmentManager extends Component
     public $title, $doctor_id, $start, $duration, $status='pendiente';
     public $end;
     public $appointmentstate;
+    public $patients;
+    
 
     public function mount()
     {
         $this->doctors = Doctor::all();
+        if (Auth::user()->hasRole('doctor')) {
+            $this->patients = User::role('patient')->get(); // Asumiendo que usas Spatie Roles
+        }
+    
+        if (Auth::user()->hasRole('patient')) {
+            $this->doctors = Doctor::with('user')->get();
+        }
         
       
     }
@@ -49,9 +58,12 @@ class AppointmentManager extends Component
     $appointmentspatinet = Appointment::where('patient_id', Auth::id())->paginate(3);
     
     $appointmentsdoctor = Appointment::where('doctor_id', Auth::id())->paginate(3);
+
+    $patientsselect = Patient::all();
     return view('livewire.appointment-manager', [
         'appointmentspatinet' => $appointmentspatinet,
-        'appointmentsdoctor' => $appointmentsdoctor
+        'appointmentsdoctor' => $appointmentsdoctor,
+        'patientsselect' => $patientsselect,
     ]);
     }
 

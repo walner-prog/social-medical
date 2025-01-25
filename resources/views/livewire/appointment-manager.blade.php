@@ -1,5 +1,6 @@
 <div>
-    <h2 class="text-2xl font-bold mb-4">Gestión de Citas</h2>
+    <h2 class="text-2xl font-bold mb-4 text-center">Gestión de Citas</h2>
+   
 
     <h3 class="text-2xl font-bold mt-8 mb-4 text-center text-gray-800 bg-gradient-to-r from-blue-500 via-slate-500 to-indigo-500 text-transparent bg-clip-text drop-shadow-lg">
         Lista Detallada de Citas Programadas
@@ -156,7 +157,7 @@
       <label for="doctor_id" class="absolute top-1 left-3 text-sm text-gray-400 transition-all transform scale-75 origin-top-left">Paciente</label>
       <select id="doctor_id" wire:model="doctor_id" class="bg-gray-800 border border-gray-700 rounded-md px-3 pt-6 pb-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500">
         <option value="">Seleccione un paciente</option>
-        @foreach($patients as $patient)
+        @foreach($patientsselect as $patient)
           <option value="{{ $patient->id }}">{{ $patient->user->name }}</option>
         @endforeach
       </select>

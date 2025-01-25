@@ -71,9 +71,10 @@
                             <a href="{{ route('blog.edit', $post->id) }}" class="text-blue-500 hover:text-blue-700">
                                 <i class="fas fa-edit mr-2"></i> Editar
                             </a>
-                            <button wire:click="deletePost({{ $post->id }})" class="text-red-500 hover:text-red-700 ml-4">
+                            <button wire:click="confirmDelete({{ $post->id }})" class="text-red-500 hover:text-red-700 ml-4">
                                 <i class="fas fa-trash-alt mr-2"></i> Eliminar
                             </button>
+                            
                         </td>
                     </tr>
                 @endforeach
@@ -86,21 +87,16 @@
         {{ $posts->links() }}
     </div>
 
-       @if ($showDeleteModal)
-            
-       <div class="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm">
-            <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Confirmar Eliminación</h3>
-            <p class="text-gray-600 dark:text-gray-300 mb-4">Por favor, copie el título del post para confirmar la eliminación:</p>
-            <input type="text" wire:model="postTitleToConfirm" class="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">El título debe coincidir exactamente.</p>
-
-            <div class="mt-4 flex justify-between">
-                <button wire:click="closeModal" class="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-200 p-2 rounded-lg">Cancelar</button>
-                <button wire:click="deletePost" class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600">Eliminar</button>
+    @if($showDeleteModal)
+    <div class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+        <div class="bg-white rounded-lg p-6 shadow-lg">
+            <h2 class="text-lg font-semibold text-gray-800">¿Estás seguro de que deseas eliminar esta publicación?</h2>
+            <div class="mt-4 flex justify-end">
+                <button wire:click="$set('showDeleteModal', false)" class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">Cancelar</button>
+                <button wire:click="deletePost" class="px-4 py-2 ml-2 bg-red-500 text-white rounded-md hover:bg-red-600">Eliminar</button>
             </div>
         </div>
     </div>
-       @endif
+@endif
 
 </div>

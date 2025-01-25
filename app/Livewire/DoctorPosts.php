@@ -87,30 +87,24 @@ class DoctorPosts extends Component
         ]);
     }
 
-   public function confirmDelete($postId)
-{
-    $post = Post::findOrFail($postId);
-    $this->postToDelete = $postId;
-    $this->postTitleToConfirm = ''; // Vaciar el campo de título a confirmar
-    $this->showDeleteModal = true; // Mostrar el modal
-}
-
-public function deletePost()
-{
-    // Verificar si el título ingresado por el usuario coincide
-    if ($this->postTitleToConfirm && $this->postTitleToConfirm == Post::find($this->postToDelete)->title) {
-        // El título coincide, proceder a eliminar
-        $post = Post::findOrFail($this->postToDelete);
-        $post->delete();
-        session()->flash('message', 'Publicación eliminada con éxito.');
-    } else {
-        // Si el título no coincide, mostrar el mensaje correspondiente
-        session()->flash('message', 'El título no coincide, no se pudo eliminar la publicación.');
+    public function confirmDelete($postId)
+    {
+        $this->postToDelete = $postId;
+        $this->showDeleteModal = true; // Mostrar el modal
     }
-
-    // Cerrar el modal sin importar si se eliminó o no
-    $this->showDeleteModal = false; 
-    $this->resetSearch(); // Resetear búsqueda después de la eliminación
-}
-
+    
+    public function deletePost()
+    {
+        if ($this->postToDelete) {
+            $post = Post::findOrFail($this->postToDelete);
+            $post->delete();
+            session()->flash('message', 'Publicación eliminada con éxito.');
+        } else {
+            session()->flash('message', 'Error al intentar eliminar la publicación.');
+        }
+    
+        $this->showDeleteModal = false; // Ocultar el modal
+        $this->postToDelete = null; // Resetear el ID del post a eliminar
+    }
+    
 }

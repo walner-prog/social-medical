@@ -7,6 +7,7 @@ use App\Models\DoctorLike;
 use App\Models\Appointment;
 use App\Models\Patient;
 use Livewire\Component;
+use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 class DoctorDetail extends Component
@@ -23,6 +24,8 @@ class DoctorDetail extends Component
     public $isModalOpen = false;  // Variable para controlar el modal
     public $appointment_datetime; 
     public  $patientName;  // Variable para la fecha de la cita
+    public $perPage = 5;
+
    
     public function mount($doctorId)
     {
@@ -183,10 +186,27 @@ class DoctorDetail extends Component
   }
   
   
-
+  public function loadMore()
+  {
+      $this->perPage += 5; // Incrementa las publicaciones mostradas
+  }
   
     public function render()
     {
-        return view('livewire.doctor-detail');
+      
+ // Asegúrate de que estás obteniendo el doctor por su ID y luego las publicaciones
+ $doctor = Doctor::findOrFail($this->doctorId);
+
+ $doctors = Doctor::where('specialty', $doctor->specialty)
+ ->where('id', '!=', $doctor->id) // Excluir el doctor actual
+ ->take($this->perPage)
+ ->get();
+
+    
+ return view('livewire.doctor-detail', [
+     'posts' => $doctor->user->posts()->take($this->perPage)->get() ,// Obtener publicaciones a través de user
+     'doctors' => $doctors, 
+ ]);
+        
     }
 }

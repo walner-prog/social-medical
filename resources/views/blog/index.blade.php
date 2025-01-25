@@ -7,7 +7,7 @@
                
                     @livewire('post-index')
                       
-                  
+               
                  
                       
         </div>
