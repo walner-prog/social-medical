@@ -6,13 +6,15 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Doctor;
 new class extends Component
 {
 
     use WithFileUploads;  // Agregar este trait
 
     public $avatar;  // Variable para almacenar el archivo
-
+    public $doctor; 
   
     public string $name = '';
     public string $email = '';
@@ -47,6 +49,7 @@ public ?string $consultation_hours = null;  // Horario de consulta
      */
      public function mount(): void
     {
+        $this->doctor = Doctor::where('user_id', Auth::id())->first(); 
         $user = Auth::user();
         $this->name = $user->name;
         $this->email = $user->email;
@@ -106,7 +109,13 @@ public ?string $consultation_hours = null;  // Horario de consulta
      public function updateProfileInformation(): void
 {
     try {
+
         $user = Auth::user();
+
+        // Verifica si el usuario tiene permiso para actualizar el doctor
+        if (! Gate::allows('update-doctor', $user->doctor)) {
+            abort(403, 'No tienes permiso para actualizar este doctor.');
+        }
 
         // Validar campos base
         $validated = $this->validate([
@@ -386,6 +395,19 @@ public ?string $consultation_hours = null;  // Horario de consulta
             </x-action-message>
         </div>
     </form>
+       <br>
+    <div class="mb-4 p-4 bg-gray-100 rounded-md">
+        <p class="text-lg font-semibold text-gray-800">
+            Puedes subir tus certificados, logros o reconocimientos aquí.
+        </p>
+
+        <a href="{{ route('doctor.upload-certificate', $doctor->id) }}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition duration-300 ease-in-out">
+            Subir Certificado
+        </a>
+    </div>
+
+    
+   
 </section>
 
 

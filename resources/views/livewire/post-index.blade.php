@@ -234,29 +234,98 @@
             </div>
             <br>
 
-            <div class="bg-gradient-to-br from-red-600 to-yellow-500 rounded-xl p-6 shadow-lg hover:scale-105 transition-transform duration-300">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="bg-gray-700 text-white text-xs px-3 py-1 rounded-full">Evento</span>
-                    <span class="text-sm text-gray-300">10/01/2025</span>
-                </div>
-                <h3 class="text-xl font-bold mb-4 text-white">Taller: Mejora tu salud con expertos</h3>
-                <p class="text-gray-200 mb-4">Únete a nosotros para un taller interactivo con profesionales de la salud. Cupos limitados.</p>
-                <button class="bg-gray-800 text-white py-2 px-4 rounded-lg mt-4 hover:bg-gray-700">Regístrate ahora</button>
-            </div>
-           <br>
           
-           <livewire:category-carousel />
+            
+           <br>
         
-            
-            
-            
-
-
       
     </div>
-    
+   
 </div>
 
+<div class="relative overflow-hidden">
+    <div class="flex transition-transform duration-700" id="eventSlider">
+        @php
+            // Lista de degradados que se asignarán aleatoriamente a los eventos
+            $gradients = [
+                'from-red-600 to-yellow-500',
+                'from-green-500 to-blue-500',
+                'from-purple-600 to-pink-500',
+                'from-indigo-600 to-teal-500',
+                'from-yellow-500 to-orange-500',
+                'from-teal-500 to-cyan-500',
+                'from-blue-600 to-purple-600',
+                'from-pink-500 to-yellow-400',
+                'from-orange-600 to-red-500',
+                'from-green-600 to-blue-400'
+            ];
+        @endphp
+        @foreach ($events as $index => $event)
+            @php
+                // Asignar un degradado aleatorio a cada evento
+                $gradient = $gradients[$index % count($gradients)];
+            @endphp
+            <div class="bg-gradient-to-br {{ $gradient }} rounded-xl p-6 shadow-lg hover:scale-105 transition-transform duration-300 w-80 mx-4">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="bg-gray-700 text-white text-xs px-3 py-1 rounded-full">Evento</span>
+                    <span class="text-sm text-gray-300">{{ \Carbon\Carbon::parse($event->start)->format('d/m/Y') }}</span>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-white">{{ $event->title }}</h3>
+                <p class="text-gray-200 mb-4">{{ $event->description }}</p>
+                
+                <!-- Nuevos campos de Ubicación, Hora, y Costo con iconos -->
+                <div class="flex items-center text-gray-200 mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12l5 5L19 7"></path></svg>
+                    <p><strong>Ubicación:</strong> {{ $event->location }}</p>
+                </div>
+                
+                <div class="flex items-center text-gray-200 mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m7-7H5"></path></svg>
+                    <p><strong>Hora:</strong> {{ \Carbon\Carbon::parse($event->hour)->format('H:i') }}</p>
+                </div>
+                
+                <div class="flex items-center text-gray-200 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12 6-12 6z"></path></svg>
+                    <p><strong>Costo:</strong> ${{ number_format($event->cost, 2) }}</p>
+                </div>
+                
+                <button class="bg-gray-800 text-white py-2 px-4 rounded-lg mt-4 hover:bg-gray-700">Regístrate ahora</button>
+            </div>
+        @endforeach
+    </div>
+</div>
+
+
+
+
+<style>
+    #eventSlider {
+    display: flex;
+    width: max-content;
+    animation: scrollSlider 15s linear infinite;
+}
+
+@keyframes scrollSlider {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+</style>
 
    
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const eventSlider = document.getElementById('eventSlider');
+    
+    // Lógica para ajustar la velocidad si es necesario
+    const slideWidth = eventSlider.offsetWidth / 2; // O ajusta según tu necesidad
+    eventSlider.style.animationDuration = `${(eventSlider.scrollWidth / slideWidth) * 15}s`; // Controla la duración de la animación
+    
+});
+
+</script>

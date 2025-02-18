@@ -19,10 +19,19 @@
                     <div class="relative flex flex-col min-w-0 break-words border-stone-200 bg-light/30 max-w-4xl w-full">
                         <div class="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
                             <h3 class="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
-                                <span class="mr-3 font-semibold text-dark mb-3">Información del Doctor: <strong class="text-cyan-700 dark:text-green-500">{{ $doctor->user->name }}</strong></span>
+                                <span class="mr-3 font-semibold text-dark mb-3">
+                                    @if(auth()->check() && auth()->user()->name === optional($doctor->user)->name)
+                                    Información de mi perfil
+                                @else
+                                    Información del Doctor:
+                                @endif
                                 
+                                   
+                                    <strong class="text-cyan-700 dark:text-green-500">{{ $doctor->user->name }}</strong>
+                                </span>
                             </h3>
                         </div>
+                        
         
                         <div class="flex-auto block py-8 pt-6 px-9">
                             <livewire:doctor-detail :doctorId="$doctor->id" />

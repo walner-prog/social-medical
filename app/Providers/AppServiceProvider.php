@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Doctor;
 use App\Observers\UserObserver;
 use App\Observers\PostObserver;
 
@@ -33,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
 
         User::observe(UserObserver::class);
         Post::observe(PostObserver::class);
+
+        // Definimos un Gate para actualizar el doctor
+        Gate::define('update-doctor', function (User $user, Doctor $doctor) {
+        return $user->id === $doctor->user_id;  // Compara si el usuario autenticado es el dueño del doctor
+        });
         
     }
 }

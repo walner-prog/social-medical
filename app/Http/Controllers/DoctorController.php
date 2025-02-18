@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Appointment;
+use Illuminate\Support\Facades\Auth;
 use App\Notifications\AppointmentNotification;
 
 class DoctorController extends Controller
@@ -50,6 +51,11 @@ class DoctorController extends Controller
     
     public function show($user)
     {
+        if (!auth()->check()) {
+            // Redirigir al login o mostrar un mensaje de error
+            return redirect()->route('login')->withErrors(['error' => 'Debe iniciar sesión para acceder a esta página.']);
+        }
+        
         $doctor = Doctor::where('user_id', $user)->first();
     
         if (!$doctor) {
@@ -65,6 +71,20 @@ class DoctorController extends Controller
     {
 
         return view('doctores.citas_programadas');
+    }
+
+   
+    public function uploadCertificate()
+    {
+        $doctor = Doctor::where('user_id', Auth::id())->first();
+        
+        if ($doctor) {
+            // Si se encuentra el doctor, pasa los datos a la vista
+            return view('doctores.certificados_logros', compact('doctor'));
+        }
+    
+        // Si no se encuentra el doctor, redirige al login
+        return redirect()->route('login')->withErrors('Debes iniciar sesión para continuar.');
     }
     
 

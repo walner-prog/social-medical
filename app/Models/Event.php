@@ -15,6 +15,14 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'start', 'end'
+        'doctor_id', 'title', 'start', 'end', 'description', 'location', 'hour', 'cost', 'audience', 'registration'
     ];
+    
+
+
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
+    }
 }

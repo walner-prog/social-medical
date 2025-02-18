@@ -51,17 +51,7 @@
                 </select>
             </div>
     
-            <!-- Filtro por experiencia mínima -->
-            {{-- <div class="relative">
-                <input 
-                    type="number" 
-                    wire:model.defer="tempExperienceYears" 
-                    placeholder="Años de experiencia mínima"
-                    min="0"
-                    class="block w-full sm:w-64 px-4 py-2 rounded-md dark:bg-gray-800 dark:text-gray-200 border focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-            </div> --}}
-    
+         
             <!-- Botón para aplicar búsqueda y filtros -->
             <button 
                 wire:click="applyFilters" 

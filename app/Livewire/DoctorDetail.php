@@ -7,7 +7,7 @@ use App\Models\DoctorLike;
 use App\Models\Appointment;
 use App\Models\Patient;
 use Livewire\Component;
-use App\Models\Post;
+use App\Models\Certificate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 class DoctorDetail extends Component
@@ -51,22 +51,21 @@ class DoctorDetail extends Component
                                  ->where('doctor_id', $this->doctorId)
                                  ->exists();
     }
-
     public function likeDoctor()
     {
         $user = auth()->user();
-    
+
         // Verificar si el usuario tiene el rol 'patient'
         if ($user->role !== 'patient') {
             session()->flash('error', 'Solo los pacientes pueden dar "me gusta" a los doctores.');
             return;
         }
-    
+
         // Verificar si ya existe un "me gusta" de este paciente para este doctor
         $existingLike = DoctorLike::where('user_id', $user->id)
                                   ->where('doctor_id', $this->doctorId)
                                   ->first();
-    
+
         if ($existingLike) {
             // Si existe, eliminar el "me gusta"
             $existingLike->delete();
@@ -82,7 +81,7 @@ class DoctorDetail extends Component
             $this->likesCount++;  // Incrementar contador
         }
     }
-    
+
     
 
     public function loadReviews()
@@ -195,17 +194,22 @@ class DoctorDetail extends Component
     {
       
  // Asegúrate de que estás obteniendo el doctor por su ID y luego las publicaciones
- $doctor = Doctor::findOrFail($this->doctorId);
+ $doctor = Doctor::with('awards')->find($this->doctorId);
 
  $doctors = Doctor::where('specialty', $doctor->specialty)
  ->where('id', '!=', $doctor->id) // Excluir el doctor actual
  ->take($this->perPage)
  ->get();
 
+ $certificates = Certificate::where('user_id', $doctor->user->id)->get();
+
+
     
  return view('livewire.doctor-detail', [
      'posts' => $doctor->user->posts()->take($this->perPage)->get() ,// Obtener publicaciones a través de user
      'doctors' => $doctors, 
+     'certificates' => $certificates,
+     'awards' => $doctor->awards,
  ]);
         
     }

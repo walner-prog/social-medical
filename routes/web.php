@@ -14,42 +14,47 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Middleware\SetPageTitle;
 use App\Http\Controllers\DropzoneController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\FullCalenderController;
 
-Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('category.posts');
+
+   Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('category.posts');
 
   
-Route::get('dropzone', [DropzoneController::class, 'index'])->name('dropzone');
+Route::middleware(['auth'])->group(function () {
 
-Route::post('dropzone/store', [DropzoneController::class, 'store'])->name('dropzone.store');
-Route::get('galery/images', [DropzoneController::class, 'galeryImage'])->name('galery');
+    Route::get('dropzone', [DropzoneController::class, 'index'])->name('dropzone');
+    Route::post('dropzone/store', [DropzoneController::class, 'store'])->name('dropzone.store');
+    Route::get('galery/images', [DropzoneController::class, 'galeryImage'])->name('galery');
 
-use App\Http\Controllers\GoogleController;
- 
-use App\Http\Controllers\FullCalenderController;
-   
-Route::get('user-notify', [PatientController::class, 'index']);
+    Route::get('appointmentCalendar', [FullCalenderController::class, 'index'])->name('appointmentCalendar');
+    Route::get('/promociones-ofertas', [HomeController::class, 'promociones'])->name('promotions.offers');
 
-Route::get('appointmentCalendar', [FullCalenderController::class, 'index'])->name('appointmentCalendar');
+    // Rutas para AppointmentController////
+    Route::get('appointments/{appointment}', [AppointmentController::class, 'show'])->name('appointments.show');
+    Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index');
 
-Route::controller(FullCalenderController::class)->group(function(){
-   
-    Route::post('fullcalenderAjax2', 'ajax');
-   
+    Route::resource('patient', PatientController::class);
+    Route::get('citas/program', [PatientController::class, 'showAppointments'])->name('citas.program');
 });
-
-
-//Route::post('appointmentCalendar', [FullCalenderController::class, 'store'])->name('store');
-
-
 
 
 Route::post('/logout', function () {
     Auth::logout(); // Cierra la sesión
     return redirect('/'); // Redirige a la página de inicio
 })->name('logout');
+
+   
+Route::get('user-notify', [PatientController::class, 'index']);
+Route::controller(FullCalenderController::class)->group(function(){
+   
+    Route::post('fullcalenderAjax2', 'ajax');
+   
+});
+
 
 
 
@@ -85,11 +90,9 @@ Route::get('/', function () {
     
 });
 
-
-Route::get('/promociones-ofertas', [HomeController::class, 'promociones'])->name('promotions.offers');
 Route::get('dashboard', [HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+    ->name('dashboard')->middleware(SetPageTitle::class);
 
 
 Route::view('profile', 'profile')
@@ -104,24 +107,17 @@ Route::get('/doctor/profile/{user}', [GoogleController::class, 'showDoctorProfil
 Route::post('/doctor/profile/{user}', [GoogleController::class, 'updateDoctorProfile']);
 Route::post('/auth/set-role/{user}', [GoogleController::class, 'setRole'])->name('set-role');
 Route::get('/auth/select-role/{user}', [GoogleController::class, 'selectRoleForm'])->name('select-role');
-Route::post('/assign-role/{user}', [GoogleController::class, 'assignRole'])->name('assign-role');
 
+Route::get('/forum', function () {
+    return view('forum.index');
+})->name('forum');
 
 // Rutas para BlogController////
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
 
 // Rutas para ChatController////
-Route::get('/chat', [ChatController::class, 'index'])->name('chat');
-Route::post('/chat/send', [ChatController::class, 'send'])->name('chat.send');
-
-// Rutas para AppointmentController////
-Route::get('appointments/{appointment}', [AppointmentController::class, 'show'])->name('appointments.show');
-Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index');
-
-
-
-
-
+//Route::get('/chat', [ChatController::class, 'index'])->name('chat');
+//Route::post('/chat/send', [ChatController::class, 'send'])->name('chat.send');
 
 Route::middleware('auth')->group(function () {
     Route::resource('appointments', AppointmentController::class)->except(['destroy']);
@@ -129,30 +125,31 @@ Route::middleware('auth')->group(function () {
 
 // Rutas para DoctorController////
 Route::get('doctor', [DoctorController::class, 'index'])->name('doctores.index');
-Route::get('contacto', [DoctorController::class, 'index'])->name('contacto');
 Route::get('/doctor/detalle/{user}', [DoctorController::class, 'show'])->name('doctor.detalle');
-Route::get('quienessomos', [BlogController::class, 'QuienesSomos'])->name('quienes.somos');
-// En web.php
-//Route::middleware(['auth', 'role:doctor'])->group(function () {
+Route::get('/doctor/{doctorId}/upload-certificate', [DoctorController::class, 'uploadCertificate'])->name('doctor.upload-certificate');
+
+Route::get('citas/programadas', [DoctorController::class, 'showAppointments'])
+    ->name('citas.programadas')
+    ->middleware('auth'); 
+
+    Route::get('contacto', [DoctorController::class, 'index'])->name('contacto');
+    Route::get('quienessomos', [BlogController::class, 'QuienesSomos'])->name('quienes.somos');
+
+
     Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
-    Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
-    Route::get('/blog/edit/{postId}', [BlogController::class, 'edit'])->name('blog.edit');
     Route::get('/posts/{post:slug}', [BlogController::class, 'show'])->name('posts.show');
-   // Route::get('/posts/{post:slug}', [BlogController::class, 'show'])->name('posts.show')->middleware(AuthenticateJWT::class);
-    Route::get('/blogs/accions', [BlogController::class, 'accionPost'])->name('blogs.accions');
-   // Route::post('/blog', [BlogController::class, 'store'])->name('blog.store');
-    //Route::put('/blog/{postId}', [BlogController::class, 'update'])->name('blog.update');
-    //Route::delete('/blog/{postId}', [BlogController::class, 'destroy'])->name('blog.destroy');
-//});
-
-
-Route::view('productos', 'productos.index')->name('productos.index');
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
+        Route::get('/blog/edit/{postId}', [BlogController::class, 'edit'])->name('blog.edit');
+        Route::get('/blogs/accions', [BlogController::class, 'accionPost'])->name('blogs.accions');
+    });
+ 
+     
+    Route::view('productos', 'productos.index')->name('productos.index');
   
-// Rutas para PaymentController////
-Route::resource('patient', PatientController::class);
-Route::get('citas/program', [PatientController::class, 'showAppointments'])->name('citas.program');
 
-Route::get('citas/programadas', [DoctorController::class, 'showAppointments'])->name('citas.programadas');
+
+
 
 
 /* Rutas para PaymentController////

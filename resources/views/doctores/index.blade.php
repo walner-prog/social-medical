@@ -20,10 +20,13 @@
                         <div class="relative flex flex-col min-w-0 break-words border-stone-200 bg-light/30 ">
                             <div class="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
                                 <h3 class="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
-                                    <span class="mr-3 font-semibold text-dark"> Lista de Doctores</span>
+                                   
+                                    <span class="text-sm text-gray-700 mt-1">
+                                        En <strong>Social Medical</strong>, conectamos a pacientes con los mejores profesionales de la salud. Busca médicos por especialidad, ciudad y más, para recibir atención médica de calidad de manera rápida y fácil.
+                                    </span>
                                 </h3>
                             </div>
-        
+                            
                             <div class="flex-auto block py-8 pt-6 px-9">
                                 <livewire:doctor-profile />
                             </div>

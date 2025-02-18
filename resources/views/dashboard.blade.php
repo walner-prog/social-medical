@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    
+
 
     @php
     $userRole = auth()->user()->role; // Obtienes el rol del usuario logueado
@@ -9,7 +9,7 @@
     
 </style>
 <div class="mt-12">
-
+  
      <div  class="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 text-white flex flex-col max-w-12xl mx-auto sm:px-6 lg:px-8  dark:bg-gray-900 text-gray-800 dark:text-gray-100">
                  
         @if(session('success'))

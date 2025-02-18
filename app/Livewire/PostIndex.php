@@ -7,35 +7,25 @@ use Livewire\WithPagination;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Suggestion;
+use App\Models\Event;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 class PostIndex extends Component
 {
     use WithPagination;
-
+    protected $paginationTheme = 'tailwind';
     public $search = '';
     public $category = '';
     public $perPage = 9;
-
-    // Variables temporales para filtros
     public $tempSearch = '';
     public $tempCategory = '';
-
-
     public $suggestion = '';
     public $userEmail;
     
-
-
-
     protected $queryString = [
         'search' => ['except' => ''],
         'category' => ['except' => ''],
     ];
-
-    protected $paginationTheme = 'tailwind';
-
-    
 
     public function updating($property)
     {
@@ -51,11 +41,6 @@ class PostIndex extends Component
         $this->resetPage();
     }
 
-    protected $rules = [
-        'suggestion' => 'required|string|max:500',  // Validación de la sugerencia
-        'userEmail' => 'required|email',            // Validación del correo
-    ];
-
     public function mount()
     {
         if (Auth::check()) {
@@ -66,6 +51,10 @@ class PostIndex extends Component
     
     }
 
+    protected $rules = [
+        'suggestion' => 'required|string|max:500',  // Validación de la sugerencia
+        'userEmail' => 'required|email',            // Validación del correo
+    ];
     // Este método se ejecutará cuando se envíe el formulario
     public function submitSuggestion()
     {
@@ -116,12 +105,13 @@ class PostIndex extends Component
             ->take(5)
             ->get();
 
-         
+            $events = Event::all();
 
         return view('livewire.post-index', [
             'posts' => $posts,
             'categories' => $categories,
             'popularPosts' => $popularPosts,
+            'events' => $events
          
         ]);
     }

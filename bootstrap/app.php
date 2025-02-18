@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\SetPageTitle;
 use App\Http\Middleware\AuthenticateJWT;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,9 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Registra tu middleware aquí
-   //  $middleware->web(append: \App\Http\Middleware\CheckSubscription::class);
-    // $middleware->append(AuthenticateJWT::class);
+      
+       // $middleware->append(SetPageTitle::class);
+            
+        
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -305,7 +305,7 @@ new class extends Component
            <div class="relative hidden sm:flex sm:items-center sm:ms-6 mr-34">
             @auth
                 <!-- Dropdown para usuarios autenticados -->
-                <div x-data="{ open: false, name: '{{ auth()->user()->name }}' }" class="relative">
+                <div x-data="{ open: false, name: '' }" class="relative">
                     <button @click="open = !open" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:ring focus:ring-blue-500 transition">
                         <div class="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-gray-200">
                             @if(auth()->user()->avatar)
@@ -323,7 +323,7 @@ new class extends Component
                     </button>
                     <div x-show="open" @click.outside="open = false" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg dark:bg-gray-800 dark:border-gray-700" x-cloak>
                         <a href="{{ route('profile') }}" class="w-full text-start block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
-                            {{ __('Perfil') }}
+                            {{ __('Perfil') }}  
                         </a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

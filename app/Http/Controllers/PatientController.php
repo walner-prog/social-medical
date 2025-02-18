@@ -21,7 +21,7 @@ class PatientController extends Controller
         
         $patient->notify(new emailCita($messages));
   
-        dd('Done');
+        
     }
 
     

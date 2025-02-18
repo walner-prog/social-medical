@@ -52,6 +52,16 @@ public function posts()
     return $this->hasManyThrough(Post::class, User::class, 'id', 'user_id', 'user_id', 'id');
 }
 
+public function awards()
+{
+    return $this->hasMany(DoctorAward::class);
+}
+
+public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
 
 
 
@@ -100,6 +110,8 @@ public function getHighRatingPostsPercentageAttribute()
 
     return $totalPosts > 0 ? round(($highRatedPosts / $totalPosts) * 100, 2) : 0;
 }
+
+
 
 
 

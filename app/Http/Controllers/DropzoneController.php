@@ -10,11 +10,8 @@ use Illuminate\Support\Facades\Auth;
  
 class DropzoneController extends Controller
 {
-    /**
-     * Generate Image upload View
-     *
-     * @return void
-     */
+   
+
     public function index(): View
     {
         $images = Image::where('user_id', Auth::id())->latest()->take(12)->get(); 
